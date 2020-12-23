@@ -1,0 +1,6 @@
+databaseChangeLog:
+  - include:
+      file: db/changelog/changes/db.changelog-02-t-book.yaml
+  - include:
+      file: db/changelog/changes/db.changelog-01-t-student.yaml
+
