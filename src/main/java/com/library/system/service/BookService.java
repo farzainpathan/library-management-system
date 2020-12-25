@@ -4,10 +4,10 @@ import com.library.system.domian.Book;
 import com.library.system.exception.BookException;
 import com.library.system.repository.BookPersistence;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BookService implements RequestBook {
@@ -20,7 +20,7 @@ public class BookService implements RequestBook {
     }
 
     @Override
-    public List<Book> fetchAllBooks() throws BookException {
+    public Optional<List<Book>> fetchAllBooks() throws BookException {
         return bookPersistence.fetchAllBooks();
     }
 }

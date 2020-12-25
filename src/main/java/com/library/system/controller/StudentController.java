@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/v1")
@@ -26,7 +27,7 @@ public class StudentController {
 
     @GetMapping("/students")
     @ApiOperation(value = "This endpoint fetches all the students from database")
-    public List<Student> getAllStudent() throws StudentException {
+    public Optional<List<Student>> getAllStudent() throws StudentException {
         return requestStudent.fetchAllStudents();
     }
 }
