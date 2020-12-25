@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/v1")
@@ -26,7 +27,7 @@ public class BookController {
 
     @GetMapping("books")
     @ApiOperation(value = "This endpoint fetches all the books from database")
-    public List<Book> getAllBooks() throws BookException {
+    public Optional<List<Book>> getAllBooks() throws BookException {
         return requestBook.fetchAllBooks();
     }
 

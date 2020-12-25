@@ -4,10 +4,10 @@ import com.library.system.domian.Student;
 import com.library.system.exception.StudentException;
 import com.library.system.repository.StudentPersistence;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class StudentService implements RequestStudent{
@@ -20,7 +20,7 @@ public class StudentService implements RequestStudent{
     }
 
     @Override
-    public List<Student> fetchAllStudents() throws StudentException {
+    public Optional<List<Student>> fetchAllStudents() throws StudentException {
         return studentPersistence.fetchAllStudents();
     }
 }
