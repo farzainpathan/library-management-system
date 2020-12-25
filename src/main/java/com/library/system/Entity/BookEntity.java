@@ -33,7 +33,7 @@ public class BookEntity {
     private String isbn;
 
     @Column(name = "QUANTITY")
-    private String quantity;
+    private int quantity;
 
     public static List<Book> toModel(List<BookEntity> bookEntityList) {
         return bookEntityList.stream().map(BookEntity::toModel).collect(Collectors.toList());

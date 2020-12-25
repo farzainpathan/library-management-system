@@ -19,5 +19,5 @@ public class Book {
 
     private String isbn;
 
-    private String quantity;
+    private int quantity;
 }
