@@ -15,11 +15,11 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name = "T_BOOK", catalog = "Library")
+@Table(name = "T_BOOK")
 public class BookEntity {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     private Long Id;
 
@@ -41,10 +41,20 @@ public class BookEntity {
 
     public static Book toModel(BookEntity bookEntity) {
         return Book.builder()
+                .Id(bookEntity.getId())
                 .bookName(bookEntity.getBookName())
                 .authorName(bookEntity.getAuthorName())
                 .isbn(bookEntity.getIsbn())
                 .quantity(bookEntity.getQuantity())
+                .build();
+    }
+
+    public static BookEntity createEntity(Book book) {
+        return BookEntity.builder()
+                .bookName(book.getBookName())
+                .authorName(book.getAuthorName())
+                .isbn(book.getIsbn())
+                .quantity(book.getQuantity())
                 .build();
     }
 }

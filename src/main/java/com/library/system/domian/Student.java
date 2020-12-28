@@ -11,6 +11,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Student {
 
+    private Long Id;
+
     private String firstName;
 
     private String lastName;

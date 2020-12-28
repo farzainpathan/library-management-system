@@ -8,5 +8,13 @@ import java.util.Optional;
 
 public interface StudentPersistence {
 
-    public Optional<List<Student>> fetchAllStudents() throws StudentException;
+    Optional<Student> saveStudent(Student student);
+
+    void deleteStudent(Long id);
+
+    Optional<List<Student>> fetchAllStudents() throws StudentException;
+
+    Optional<Student> fetchStudentById(Long id) throws StudentException;
+
+    Optional<Student> fetchStudentByUsn(String usn) throws StudentException;
 }

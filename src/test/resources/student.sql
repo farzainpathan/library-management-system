@@ -1,0 +1,4 @@
+INSERT INTO T_STUDENT (FIRST_NAME, LAST_NAME, USN, DEPARTMENT)
+	VALUES
+('Jonny', 'Deep', '1PI12CS19', 'CS'),
+('Christian', 'Bale', '1PI12CS20', 'IS');

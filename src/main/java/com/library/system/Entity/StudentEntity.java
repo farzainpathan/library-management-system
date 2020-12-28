@@ -15,11 +15,11 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "T_STUDENT", catalog = "Library")
+@Table(name = "T_STUDENT")
 public class StudentEntity {
 
-    @javax.persistence.Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     private Long id;
 
@@ -41,10 +41,20 @@ public class StudentEntity {
 
     public static Student toModel(StudentEntity studentEntity) {
         return Student.builder()
+                .Id(studentEntity.getId())
                 .firstName(studentEntity.getFirstName())
                 .lastName(studentEntity.getLastName())
-                .usn(studentEntity.getLastName())
+                .usn(studentEntity.getUsn())
                 .department(studentEntity.getDepartment())
+                .build();
+    }
+
+    public static StudentEntity createEntity(Student student) {
+        return StudentEntity.builder()
+                .firstName(student.getFirstName())
+                .lastName(student.getLastName())
+                .usn(student.getUsn())
+                .department(student.getDepartment())
                 .build();
     }
 }
