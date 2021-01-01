@@ -37,11 +37,11 @@ public class BookRepository implements BookPersistence {
 
     @Override
     public Optional<List<Book>> fetchAllBooks() throws BookException {
-       List<BookEntity> bookList = bookDao.findAll();
-       if (bookList.isEmpty())
+        List<BookEntity> bookList = bookDao.findAll();
+        if (bookList.isEmpty())
             throw new BookException("There are no registered books");
-       else
-           return Optional.of(BookEntity.toModel(bookList));
+        else
+            return Optional.of(BookEntity.toModel(bookList));
     }
 
     @Override

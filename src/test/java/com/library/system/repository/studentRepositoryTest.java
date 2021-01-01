@@ -37,7 +37,7 @@ public class studentRepositoryTest {
         //Then
         assertThat(studentList.get())
                 .isNotNull()
-                .isNotNull()
+                .hasSize(12)
                 .extracting("firstName", "lastName", "usn", "department")
                 .contains(
                         tuple("Jonny", "Deep", "1PI12CS19", "CS"),

@@ -33,12 +33,11 @@ public class BookRepositoryTest {
     @Test
     @DisplayName("Should fetch all the book when asked from database")
     public void shouldFetchAllTheBook() throws BookException {
-        //Given from student.sql
+        //Given from book.sql
         //When
         Optional<List<Book>> bookList = bookRepository.fetchAllBooks();
         //Then
         assertThat(bookList.get())
-                .isNotNull()
                 .isNotNull()
                 .extracting("bookName", "authorName", "isbn", "quantity")
                 .contains(
@@ -51,7 +50,7 @@ public class BookRepositoryTest {
     @Test
     @DisplayName("Should fetch book when asked by Id from database")
     public void shouldFetchBookById() throws BookException {
-        //Given from student.sql
+        //Given from book.sql
         Optional<Book> expectedBook = Optional.of(Book.builder().Id(1L).bookName("Clean Code").authorName("Robert C. Martin").isbn("PSI156GH").quantity(6).build());
         //When
         Optional<Book> book = bookRepository.fetchBookById(1L);
@@ -66,7 +65,7 @@ public class BookRepositoryTest {
     @Test
     @DisplayName("Should throw exception when asked by Id not valid")
     public void shouldThrowExceptionWhenInvalidId() throws BookException {
-        //Given data from student.sql
+        //Given data from book.sql
         //When and Then
         assertThatThrownBy(() -> bookRepository.fetchBookById(10L)).isInstanceOf(BookException.class)
                 .hasMessageContaining("No Book registered with the given Id");
@@ -76,7 +75,7 @@ public class BookRepositoryTest {
     @Test
     @DisplayName("Should save book details into database")
     public void shouldSaveBookDetails() throws BookException {
-        //Given data from student.sql
+        //Given data from book.sql
         Book saveBook = Book.builder().bookName("Code").authorName("Farzain").isbn("PSI1919").quantity(6).build();
         //When
         Optional<Book> book = bookRepository.saveBook(saveBook);
@@ -96,7 +95,7 @@ public class BookRepositoryTest {
     @Test
     @DisplayName("Should delete book when asked given Id from database")
     public void shouldDeleteBookDetailsGivenId() throws BookException {
-        //Given data from student.sql
+        //Given data from book.sql
         //When
         Optional<List<Book>> beforeBookList = bookRepository.fetchAllBooks();
         bookRepository.deleteBookById(2L);
@@ -110,7 +109,7 @@ public class BookRepositoryTest {
     @Test
     @DisplayName("Should throw exception when there is no book with the given isbn in database")
     public void shouldThrowExceptionWhenNoStudentsFoundWithTheGivenUsn() throws BookException {
-        //Given data from student.sql
+        //Given data from book.sql
         //When and Then
         assertThatThrownBy(() -> bookRepository.fetchBookByIsbn("PIKU8989")).isInstanceOf(BookException.class)
                 .hasMessageContaining("There is no books associated with the given ISBN");
