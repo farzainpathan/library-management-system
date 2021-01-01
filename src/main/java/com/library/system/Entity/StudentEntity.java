@@ -32,8 +32,9 @@ public class StudentEntity {
     @Column(name = "USN")
     private String usn;
 
-    @Column(name = "DEPARTMENT")
-    private String department;
+    @ManyToOne(targetEntity = DepartmentEntity.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "DEPARTMENT_ID", referencedColumnName = "ID")
+    private DepartmentEntity departmentEntity;
 
     public static List<Student> toModel(List<StudentEntity> studentList) {
         return studentList.stream().map(StudentEntity::toModel).collect(Collectors.toList());
@@ -45,7 +46,7 @@ public class StudentEntity {
                 .firstName(studentEntity.getFirstName())
                 .lastName(studentEntity.getLastName())
                 .usn(studentEntity.getUsn())
-                .department(studentEntity.getDepartment())
+                .departmentId(studentEntity.getDepartmentEntity().getId())
                 .build();
     }
 
@@ -54,7 +55,7 @@ public class StudentEntity {
                 .firstName(student.getFirstName())
                 .lastName(student.getLastName())
                 .usn(student.getUsn())
-                .department(student.getDepartment())
+                //.departmentEntity(student.getDepartmentId())
                 .build();
     }
 }

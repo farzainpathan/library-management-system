@@ -28,11 +28,6 @@ public class StudentRepository implements StudentPersistence {
     }
 
     @Override
-    public void deleteStudent(Long id) {
-        studentDao.deleteById(id);
-    }
-
-    @Override
     public Optional<List<Student>> fetchAllStudents() throws StudentException {
         List<StudentEntity> studentList = studentDao.findAll();
         if (studentList.isEmpty())
@@ -48,15 +43,5 @@ public class StudentRepository implements StudentPersistence {
             return Optional.of(StudentEntity.toModel(student.get()));
         else
             throw new StudentException("There is no student registered with the given Id");
-    }
-
-    @Override
-    public Optional<Student> fetchStudentByUsn(String usn) throws StudentException {
-        Example<StudentEntity> studentUsn = Example.of(StudentEntity.builder().usn(usn).build());
-        Optional<StudentEntity> student = studentDao.findOne(studentUsn);
-        if (student.isPresent())
-            return Optional.of(StudentEntity.toModel(student.get()));
-        else
-            throw new StudentException("There is no student associated with the given USN");
     }
 }
