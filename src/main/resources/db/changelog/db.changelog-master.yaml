@@ -4,5 +4,7 @@ databaseChangeLog:
   - include:
       file: db/changelog/changes/db.changelog-02-t-student.yaml
   - include:
-      file: db/changelog/changes/db.changelog-03-t-book.yaml
+      file: db/changelog/changes/db.changelog-03-t-author.yaml
+  - include:
+      file: db/changelog/changes/db.changelog-04-t-book.yaml
 
