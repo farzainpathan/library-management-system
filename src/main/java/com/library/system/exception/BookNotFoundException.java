@@ -2,13 +2,13 @@ package com.library.system.exception;
 
 import com.library.system.domian.Book;
 
-public class BookException extends Exception {
+public class BookNotFoundException extends Exception {
 
-    public BookException(Book book) {
+    public BookNotFoundException(Book book) {
         super("Invalid Id | No Book is associated with the given Id : " + book);
     }
 
-    public BookException(String message) {
+    public BookNotFoundException(String message) {
         super(message);
     }
 }

@@ -5,19 +5,17 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Book {
+public class Department {
 
     private Long Id;
 
-    private String bookName;
+    private String departmentName;
 
-    private String isbn;
-
-    private int quantity;
-
-    private Author author;
+    private String hodName;
 }

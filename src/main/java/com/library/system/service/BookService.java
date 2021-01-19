@@ -1,7 +1,7 @@
 package com.library.system.service;
 
 import com.library.system.domian.Book;
-import com.library.system.exception.BookException;
+import com.library.system.exception.BookNotFoundException;
 import com.library.system.repository.BookPersistence;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,7 +20,7 @@ public class BookService implements RequestBook {
     }
 
     @Override
-    public Optional<List<Book>> fetchAllBooks() throws BookException {
+    public Optional<List<Book>> fetchAllBooks() throws BookNotFoundException {
         return bookPersistence.fetchAllBooks();
     }
 }

@@ -2,13 +2,13 @@ package com.library.system.exception;
 
 import com.library.system.domian.Student;
 
-public class StudentException extends Exception {
+public class StudentNotFoundException extends Exception {
 
-    public StudentException(Student student) {
+    public StudentNotFoundException(Student student) {
         super("Invalid USN | No Student is associated with the given USN : ");
     }
 
-    public StudentException(String message) {
+    public StudentNotFoundException(String message) {
         super(message);
     }
 }

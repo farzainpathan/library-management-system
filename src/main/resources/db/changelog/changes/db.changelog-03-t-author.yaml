@@ -1,0 +1,87 @@
+databaseChangeLog:
+  - changeSet:
+      id: 00.00.03.00
+      author: farzainsana.pathan
+      changes:
+        - createTable:
+            catalogName: Library
+            tableName: T_AUTHOR
+            columns:
+              - column:
+                  name: ID
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: SEQ_T_AUTHOR
+              - column:
+                  name: FIRST_NAME
+                  type: VARCHAR(150)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: LAST_NAME
+                  type: VARCHAR(150)
+                  constraints:
+                    - nullable: false
+        - createSequence:
+            sequenceName: SEQ_T_AUTHOR
+            startValue: 5
+            incrementBy: 1
+
+  - changeSet:
+      id: 00.00.03.01
+      author: farzainsana.pathan
+      changes:
+        - insert:
+            tableName: T_AUTHOR
+            columns:
+              - column:
+                  name: ID
+                  value: 1
+              - column:
+                  name: FIRST_NAME
+                  value: Joshua
+              - column:
+                  name: LAST_NAME
+                  value: Bloch
+
+        - insert:
+            tableName: T_AUTHOR
+            columns:
+              - column:
+                  name: ID
+                  value: 2
+              - column:
+                  name: FIRST_NAME
+                  value: Doug
+              - column:
+                  name: LAST_NAME
+                  value: Lea
+
+        - insert:
+            tableName: T_AUTHOR
+            columns:
+              - column:
+                  name: ID
+                  value: 3
+              - column:
+                  name: FIRST_NAME
+                  value: Herbert
+              - column:
+                  name: LAST_NAME
+                  value: Schildt
+
+        - insert:
+            tableName: T_AUTHOR
+            columns:
+              - column:
+                  name: ID
+                  value: 4
+              - column:
+                  name: FIRST_NAME
+                  value: Bruce
+              - column:
+                  name: LAST_NAME
+                  value: Eckel
