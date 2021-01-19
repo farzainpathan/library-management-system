@@ -1,4 +1,4 @@
-package com.library.system.Entity;
+package com.library.system.entity;
 
 import com.library.system.domian.Department;
 import lombok.AllArgsConstructor;
@@ -19,7 +19,8 @@ import java.util.stream.Collectors;
 public class DepartmentEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_T_DEPARTMENT")
+    @SequenceGenerator(name = "SEQ_T_DEPARTMENT", sequenceName = "SEQ_T_DEPARTMENT", initialValue = 1, allocationSize = 1)
     @Column(name = "ID")
     private Long Id;
 
@@ -28,6 +29,10 @@ public class DepartmentEntity {
 
     @Column(name = "HOD_NAME")
     private String hodName;
+
+    /*@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "DEPARTMENT_ID", referencedColumnName = "ID") //first is the foreign from the other table, second is that field from current table
+    List<StudentEntity> studentEntityList;*/
 
     public static List<Department> toModel(List<DepartmentEntity> departmentEntities) {
         return departmentEntities.stream().map(DepartmentEntity::toModel).collect(Collectors.toList());

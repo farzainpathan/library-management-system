@@ -1,9 +1,9 @@
 package com.library.system.repository;
 
-import com.library.system.Entity.AuthorEntity;
+import com.library.system.entity.AuthorEntity;
 import com.library.system.dao.AuthorDao;
 import com.library.system.domian.Author;
-import com.library.system.exception.AuthorException;
+import com.library.system.exception.AuthorNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -27,20 +27,20 @@ public class AuthorRepository implements AuthorPersistence {
     }
 
     @Override
-    public Optional<List<Author>> fetchAllAuthor() throws AuthorException {
+    public Optional<List<Author>> fetchAllAuthor() throws AuthorNotFoundException {
         List<AuthorEntity> authorList = authorDao.findAll();
         if (authorList.isEmpty())
-            throw new AuthorException("No Author's details are present in database");
+            throw new AuthorNotFoundException("No Author's details are present in database");
         else
             return Optional.of(AuthorEntity.toModel(authorList));
     }
 
     @Override
-    public Author fetchAuthorById(Long authorId) throws AuthorException {
+    public Author fetchAuthorById(Long authorId) throws AuthorNotFoundException {
         Optional<AuthorEntity> author = authorDao.findById(authorId);
         if (author.isPresent())
             return AuthorEntity.toModel(author.get());
         else
-            throw new AuthorException("No author found with the given Id");
+            throw new AuthorNotFoundException("No author found with the given Id");
     }
 }

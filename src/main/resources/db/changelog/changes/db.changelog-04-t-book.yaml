@@ -1,10 +1,11 @@
 databaseChangeLog:
   - changeSet:
-      id: 00.00.0.03
+      id: 00.00.04.00
       author: farzainsana.pathan
       changes:
         - createTable:
-            catalogName:  Library
+            catalogName: Library
+            tableName: T_BOOK
             columns:
               - column:
                   name: ID
@@ -20,11 +21,6 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: AUTHOR_NAME
-                  type: VARCHAR(150)
-                  constraints:
-                    nullable: false
-              - column:
                   name: ISBN
                   type: VARCHAR(150)
                   constraints:
@@ -34,4 +30,113 @@ databaseChangeLog:
                   type: INT
                   constraints:
                     nullable: false
+              - column:
+                  name: AUTHOR_ID
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: FK_BOOK_ID
+                    references: T_AUTHOR(ID)
+        - createSequence:
+            sequenceName: SEQ_T_BOOK
+            startValue: 6
+            incrementBy: 1
+
+  - changeSet:
+      id: 00.00.04.01
+      author: farzainsana.pathan
+      changes:
+        - insert:
             tableName: T_BOOK
+            columns:
+              - column:
+                  name: ID
+                  value: 1
+              - column:
+                  name: BOOK_NAME
+                  value: Effective Java
+              - column:
+                  name: ISBN
+                  value: ISBN0001
+              - column:
+                  name: QUANTITY
+                  value: 19
+              - column:
+                  name: AUTHOR_ID
+                  value: 1
+
+        - insert:
+            tableName: T_BOOK
+            columns:
+              - column:
+                  name: ID
+                  value: 2
+              - column:
+                  name: BOOK_NAME
+                  value: Operating Systems
+              - column:
+                  name: ISBN
+                  value: ISBN0002
+              - column:
+                  name: QUANTITY
+                  value: 25
+              - column:
+                  name: AUTHOR_ID
+                  value: 2
+
+        - insert:
+            tableName: T_BOOK
+            columns:
+              - column:
+                  name: ID
+                  value: 3
+              - column:
+                  name: BOOK_NAME
+                  value: The Complete Reference
+              - column:
+                  name: ISBN
+                  value: ISBN0003
+              - column:
+                  name: QUANTITY
+                  value: 50
+              - column:
+                  name: AUTHOR_ID
+                  value: 3
+
+        - insert:
+            tableName: T_BOOK
+            columns:
+              - column:
+                  name: ID
+                  value: 4
+              - column:
+                  name: BOOK_NAME
+                  value: Thinking in Java
+              - column:
+                  name: ISBN
+                  value: ISBN0004
+              - column:
+                  name: QUANTITY
+                  value: 21
+              - column:
+                  name: AUTHOR_ID
+                  value: 4
+
+        - insert:
+            tableName: T_BOOK
+            columns:
+              - column:
+                  name: ID
+                  value: 5
+              - column:
+                  name: BOOK_NAME
+                  value: On Java 8
+              - column:
+                  name: ISBN
+                  value: ISBN0005
+              - column:
+                  name: QUANTITY
+                  value: 50
+              - column:
+                  name: AUTHOR_ID
+                  value: 4

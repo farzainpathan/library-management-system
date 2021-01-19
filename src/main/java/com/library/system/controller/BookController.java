@@ -1,7 +1,7 @@
 package com.library.system.controller;
 
 import com.library.system.domian.Book;
-import com.library.system.exception.BookException;
+import com.library.system.exception.BookNotFoundException;
 import com.library.system.service.RequestBook;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -27,7 +27,7 @@ public class BookController {
 
     @GetMapping("books")
     @ApiOperation(value = "This endpoint fetches all the books from database")
-    public Optional<List<Book>> getAllBooks() throws BookException {
+    public Optional<List<Book>> getAllBooks() throws BookNotFoundException {
         return requestBook.fetchAllBooks();
     }
 

@@ -1,7 +1,7 @@
 package com.library.system.service;
 
 import com.library.system.domian.Student;
-import com.library.system.exception.StudentException;
+import com.library.system.exception.StudentNotFoundException;
 import com.library.system.repository.StudentPersistence;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,7 +20,7 @@ public class StudentService implements RequestStudent{
     }
 
     @Override
-    public Optional<List<Student>> fetchAllStudents() throws StudentException {
+    public Optional<List<Student>> fetchAllStudents() throws StudentNotFoundException {
         return studentPersistence.fetchAllStudents();
     }
 }

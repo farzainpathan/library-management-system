@@ -2,13 +2,13 @@ package com.library.system.exception;
 
 import com.library.system.domian.Department;
 
-public class DepartmentException extends Exception {
+public class DepartmentNotFoundException extends Exception {
 
-    public DepartmentException(Department department) {
+    public DepartmentNotFoundException(Department department) {
         super("Invalid Course Id | No department exist");
     }
 
-    public DepartmentException(String msg) {
+    public DepartmentNotFoundException(String msg) {
         super(msg);
     }
 }

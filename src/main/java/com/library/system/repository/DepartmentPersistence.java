@@ -1,16 +1,18 @@
 package com.library.system.repository;
 
 import com.library.system.domian.Department;
-import com.library.system.exception.DepartmentException;
+import com.library.system.exception.DepartmentNotFoundException;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface DepartmentPersistence {
 
-    Optional<Department> saveDepartment(Department department);
+    Department saveDepartment(Department department);
 
-    Optional<List<Department>> fetchAllCourses() throws DepartmentException;
+    List<Department> fetchAllDepartments();
 
-    Department fetchDepartmentById(Long departmentId) throws DepartmentException;
+    Optional<Department> fetchDepartmentById(Long departmentId) throws DepartmentNotFoundException;
+
+    void deleteById(Long departmentId);
 }

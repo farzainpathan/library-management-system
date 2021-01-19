@@ -1,7 +1,7 @@
 package com.library.system.controller;
 
 import com.library.system.domian.Student;
-import com.library.system.exception.StudentException;
+import com.library.system.exception.StudentNotFoundException;
 import com.library.system.service.RequestStudent;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -27,7 +27,7 @@ public class StudentController {
 
     @GetMapping("/students")
     @ApiOperation(value = "This endpoint fetches all the students from database")
-    public Optional<List<Student>> getAllStudent() throws StudentException {
+    public Optional<List<Student>> getAllStudent() throws StudentNotFoundException {
         return requestStudent.fetchAllStudents();
     }
 }

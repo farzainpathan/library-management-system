@@ -19,5 +19,5 @@ public class Student {
 
     private String usn;
 
-    private Long departmentId;
+    private Department department;
 }

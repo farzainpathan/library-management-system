@@ -2,8 +2,7 @@ package com.library.system.repository;
 
 import com.library.system.bootstrap.LibraryManagementSystemApplication;
 import com.library.system.domian.Department;
-import com.library.system.exception.BookException;
-import com.library.system.exception.DepartmentException;
+import com.library.system.exception.DepartmentNotFoundException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,15 +27,16 @@ public class DepartmentRepositoryTest {
     }
 
     @Test
-    @DisplayName("Should fetch all the book when asked from database")
-    public void shouldFetchAllTheBook() throws DepartmentException {
+    @DisplayName("Should fetch all the departments when asked from database")
+    public void shouldFetchAllTheDepartments() {
         //Given data from db.changelog-01-t-department.yaml
         //When
-        Optional<List<Department>> departmentList = departmentRepository.fetchAllCourses();
+        List<Department> departmentList = departmentRepository.fetchAllDepartments();
         //Then
-        assertThat(departmentList.get())
+        System.out.println("======== " + departmentList);
+        assertThat(departmentList)
                 .isNotNull()
-                .hasSizeGreaterThan(3)
+                .hasSizeGreaterThanOrEqualTo(3)
                 .extracting("departmentName", "hodName")
                 .contains(
                         tuple("CS", "Paul Williams"),
@@ -46,44 +46,43 @@ public class DepartmentRepositoryTest {
     }
 
     @Test
-    @DisplayName("Should save the department when asked")
-    public void shouldSaveDepartment() throws DepartmentException {
-        //Given
-        Department department = Department.builder().departmentName("MBA").hodName("Narayana Swamy").build();
+    @DisplayName("Should get department details when asked given Id")
+    public void shouldReturnDepartmentDetails() throws DepartmentNotFoundException {
+        //Given data from db.changelog-01-t-department.yaml
         //When
-        Optional<Department> department1 = departmentRepository.saveDepartment(department);
-        Optional<List<Department>> departmentList = departmentRepository.fetchAllCourses();
+        //TODO: Do not had code Id here, check how to do it using Sequence
+        Optional<Department> department = departmentRepository.fetchDepartmentById(2L);
         //Then
-        assertThat(departmentList.get())
+        assertThat(department.get())
                 .isNotNull()
-                .hasSize(4)
                 .extracting("departmentName", "hodName")
                 .contains(
-                        tuple("MBA", "Narayana Swamy")
+                        "IS", "Sandeep Shinde"
                 );
-
-    }
-
-    @Test
-    @DisplayName("Should get department details when asked given Id")
-    public void shouldReturnDepartmentDetails() throws DepartmentException {
-        //Given data from db.changelog-01-t-department.yaml
-        Department expectedDepartment = Department.builder().Id(1L).departmentName("CS").hodName("Paul Williams").build();
-        //When
-        Department department = departmentRepository.fetchDepartmentById(1L);
-        //Then
-        assertThat(department)
-                .isNotNull()
-                .usingRecursiveComparison()
-                .isEqualTo(expectedDepartment);
     }
 
     @Test
     @DisplayName("Should throw exception when invalid id is given")
-    public void shouldThrowExceptionWhenInvalidIdProvided() throws DepartmentException {
+    public void shouldThrowExceptionWhenInvalidIdProvided() throws DepartmentNotFoundException {
         //Given data from db.changelog-01-t-department.yaml
         //When and Then
-        assertThatThrownBy(() -> departmentRepository.fetchDepartmentById(20L)).isInstanceOf(DepartmentException.class)
+        assertThatThrownBy(() -> departmentRepository.fetchDepartmentById(20L)).isInstanceOf(DepartmentNotFoundException.class)
                 .hasMessageContaining("No record found for the given department id");
     }
+
+    @Test
+    @DisplayName("Should save the department when asked")
+    public void shouldSaveDepartment() {
+        //Given data from db.changelog-01-t-department.yaml
+        Department saveDepartment = Department.builder().departmentName("MBA").hodName("Narayana Swamy").build();
+        //When
+        Department savedDepartment = departmentRepository.saveDepartment(saveDepartment);
+        //Then
+        Department expectedDepartment = Department.builder().Id(4L).departmentName("MBA").hodName("Narayana Swamy").build();
+        assertThat(savedDepartment).isNotNull().usingRecursiveComparison().isEqualTo(expectedDepartment);
+    }
+
+    //TODO: handle update
+    //TODO: update with invalid ID, should throw exception
+    //TODO: delete also
 }

@@ -1,4 +1,4 @@
-package com.library.system.Entity;
+package com.library.system.entity;
 
 import com.library.system.domian.Student;
 import lombok.AllArgsConstructor;
@@ -19,7 +19,8 @@ import java.util.stream.Collectors;
 public class StudentEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_T_STUDENT")
+    @SequenceGenerator(name = "SEQ_T_STUDENT", sequenceName = "SEQ_T_STUDENT", initialValue = 1, allocationSize = 1)
     @Column(name = "ID")
     private Long id;
 
@@ -32,7 +33,7 @@ public class StudentEntity {
     @Column(name = "USN")
     private String usn;
 
-    @ManyToOne(targetEntity = DepartmentEntity.class, cascade = CascadeType.ALL)
+    @ManyToOne(targetEntity = DepartmentEntity.class)
     @JoinColumn(name = "DEPARTMENT_ID", referencedColumnName = "ID")
     private DepartmentEntity departmentEntity;
 
@@ -46,7 +47,7 @@ public class StudentEntity {
                 .firstName(studentEntity.getFirstName())
                 .lastName(studentEntity.getLastName())
                 .usn(studentEntity.getUsn())
-                .departmentId(studentEntity.getDepartmentEntity().getId())
+                .department(DepartmentEntity.toModel(studentEntity.getDepartmentEntity()))
                 .build();
     }
 
@@ -55,7 +56,7 @@ public class StudentEntity {
                 .firstName(student.getFirstName())
                 .lastName(student.getLastName())
                 .usn(student.getUsn())
-                //.departmentEntity(student.getDepartmentId())
+                .departmentEntity(DepartmentEntity.createEntity(student.getDepartment()))
                 .build();
     }
 }

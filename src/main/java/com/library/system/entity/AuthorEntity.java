@@ -1,7 +1,6 @@
-package com.library.system.Entity;
+package com.library.system.entity;
 
 import com.library.system.domian.Author;
-import com.library.system.domian.Department;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

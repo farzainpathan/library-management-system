@@ -14,7 +14,7 @@ databaseChangeLog:
                   constraints:
                     nullable: false
                     primaryKey: true
-                    primaryKeyName: SEQ_T_DEPARTMENT
+                    primaryKeyName: PK_T_DEPARTMENT
               - column:
                   name: DEPARTMENT_NAME
                   type: VARCHAR(150)
@@ -25,6 +25,10 @@ databaseChangeLog:
                   type: VARCHAR(150)
                   constraints:
                     - nullable: false
+        - createSequence:
+            sequenceName: SEQ_T_DEPARTMENT
+            startValue: 4
+            incrementBy: 1
 
   - changeSet:
       id: 00.00.01.01

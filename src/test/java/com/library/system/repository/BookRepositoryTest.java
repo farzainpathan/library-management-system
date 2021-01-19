@@ -1,15 +1,14 @@
 package com.library.system.repository;
 
 import com.library.system.bootstrap.LibraryManagementSystemApplication;
+import com.library.system.domian.Author;
 import com.library.system.domian.Book;
-import com.library.system.domian.Student;
-import com.library.system.exception.BookException;
-import com.library.system.exception.StudentException;
+import com.library.system.exception.BookNotFoundException;
+import com.library.system.exception.StudentNotFoundException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.jdbc.Sql;
 
 import java.util.List;
 import java.util.Optional;
@@ -29,31 +28,33 @@ public class BookRepositoryTest {
         assertThat(bookRepository).isNotNull();
     }
 
-    @Sql("/book.sql")
     @Test
     @DisplayName("Should fetch all the book when asked from database")
-    public void shouldFetchAllTheBook() throws BookException {
-        //Given from book.sql
+    public void shouldFetchAllTheBook() throws BookNotFoundException {
+        //Given data from db.changelog-04-t-book.yaml
         //When
         Optional<List<Book>> bookList = bookRepository.fetchAllBooks();
         //Then
         assertThat(bookList.get())
                 .isNotNull()
-                .extracting("bookName", "authorName", "isbn", "quantity")
+                .extracting("bookName", "isbn", "quantity", "author")
                 .contains(
-                        tuple("Clean Code", "Robert C. Martin", "PSI156GH", 6),
-                        tuple("Clean Architecture", "Robert C. Martin", "TUS456KL", 16)
+                        tuple("Effective Java", "ISBN0001", 19, new Author(1L, "Joshua", "Bloch")),
+                        tuple("Operating Systems", "ISBN0002", 25, new Author(2L, "Doug", "Lea")),
+                        tuple("The Complete Reference", "ISBN0003", 50, new Author(3L, "Herbert", "Schildt")),
+                        tuple("Thinking in Java", "ISBN0004", 21, new Author(4L, "Bruce", "Eckel")),
+                        tuple("On Java 8", "ISBN0005", 50, new Author(4L, "Bruce", "Eckel"))
                 );
     }
 
-    @Sql("/book.sql")
     @Test
-    @DisplayName("Should fetch book when asked by Id from database")
-    public void shouldFetchBookById() throws BookException {
-        //Given from book.sql
-        Optional<Book> expectedBook = Optional.of(Book.builder().Id(1L).bookName("Clean Code").authorName("Robert C. Martin").isbn("PSI156GH").quantity(6).build());
+    @DisplayName("Should fetch student details when asked by Id")
+    public void shouldFetchStudentById() throws BookNotFoundException {
+        //Given data from db.changelog-04-t-book.yaml
+        Author author = Author.builder().Id(4L).firstName("Bruce").lastName("Eckel").build();
+        Optional<Book> expectedBook = Optional.of(Book.builder().Id(4L).bookName("Thinking in Java").isbn("ISBN0004").quantity(21).author(author).build());
         //When
-        Optional<Book> book = bookRepository.fetchBookById(1L);
+        Optional<Book> book = bookRepository.fetchBookById(4L);
         //Then
         assertThat(book)
                 .isNotNull()
@@ -61,57 +62,25 @@ public class BookRepositoryTest {
                 .isEqualTo(expectedBook);
     }
 
-    @Sql("/book.sql")
     @Test
-    @DisplayName("Should throw exception when asked by Id not valid")
-    public void shouldThrowExceptionWhenInvalidId() throws BookException {
-        //Given data from book.sql
+    @DisplayName("Should throw exception when there is no student with the given Id in database")
+    public void shouldThrowExceptionWhenNoStudentsFoundWithTheGivenId() throws StudentNotFoundException {
+        //Given data from db.changelog-04-t-book.yaml
         //When and Then
-        assertThatThrownBy(() -> bookRepository.fetchBookById(10L)).isInstanceOf(BookException.class)
+        assertThatThrownBy(() -> bookRepository.fetchBookById(100L)).isInstanceOf(BookNotFoundException.class)
                 .hasMessageContaining("No Book registered with the given Id");
     }
 
-    @Sql("/book.sql")
     @Test
     @DisplayName("Should save book details into database")
-    public void shouldSaveBookDetails() throws BookException {
-        //Given data from book.sql
-        Book saveBook = Book.builder().bookName("Code").authorName("Farzain").isbn("PSI1919").quantity(6).build();
+    public void shouldSaveBookDetails() throws BookNotFoundException {
+        //Given data from db.changelog-04-t-book.yaml
+        Author author = Author.builder().Id(4L).firstName("Bruce").lastName("Eckel").build();
+        Book saveBook = Book.builder().Id(6L).bookName("Thinking in C++").isbn("ISBN0006").quantity(26).author(author).build();
         //When
         Optional<Book> book = bookRepository.saveBook(saveBook);
 
-        Optional<List<Book>> bookList = bookRepository.fetchAllBooks();
         //Then
-        assertThat(bookList.get())
-                .isNotEmpty()
-                .isNotNull()
-                .extracting("bookName", "authorName", "isbn", "quantity")
-                .contains(
-                        tuple("Code", "Farzain", "PSI1919", 6)
-                );
-    }
-
-    @Sql("/book.sql")
-    @Test
-    @DisplayName("Should delete book when asked given Id from database")
-    public void shouldDeleteBookDetailsGivenId() throws BookException {
-        //Given data from book.sql
-        //When
-        Optional<List<Book>> beforeBookList = bookRepository.fetchAllBooks();
-        bookRepository.deleteBookById(2L);
-        Optional<List<Book>> afterBookList = bookRepository.fetchAllBooks();
-        //Then
-        assertThat(beforeBookList.get()).hasSizeLessThanOrEqualTo(11);
-        assertThat(afterBookList.get()).hasSizeLessThanOrEqualTo(10);
-    }
-
-    @Sql("/book.sql")
-    @Test
-    @DisplayName("Should throw exception when there is no book with the given isbn in database")
-    public void shouldThrowExceptionWhenNoStudentsFoundWithTheGivenUsn() throws BookException {
-        //Given data from book.sql
-        //When and Then
-        assertThatThrownBy(() -> bookRepository.fetchBookByIsbn("PIKU8989")).isInstanceOf(BookException.class)
-                .hasMessageContaining("There is no books associated with the given ISBN");
+        assertThat(book).isNotNull().isNotEmpty().usingRecursiveComparison().isEqualTo(Optional.of(saveBook));
     }
 }

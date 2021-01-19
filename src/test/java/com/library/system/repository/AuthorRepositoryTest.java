@@ -2,9 +2,7 @@ package com.library.system.repository;
 
 import com.library.system.bootstrap.LibraryManagementSystemApplication;
 import com.library.system.domian.Author;
-import com.library.system.domian.Department;
-import com.library.system.exception.AuthorException;
-import com.library.system.exception.DepartmentException;
+import com.library.system.exception.AuthorNotFoundException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +28,7 @@ public class AuthorRepositoryTest {
 
     @Test
     @DisplayName("Should fetch all the authors details when asked from database")
-    public void shouldFetchAllTheAuthors() throws AuthorException {
+    public void shouldFetchAllTheAuthors() throws AuthorNotFoundException {
         //Given data from db.changelog-03-t-author.yaml
         //When
         Optional<List<Author>> authorList = authorRepository.fetchAllAuthor();
@@ -49,7 +47,7 @@ public class AuthorRepositoryTest {
 
     @Test
     @DisplayName("Should get author details when asked given Id")
-    public void shouldReturnAuthorDetailsById() throws AuthorException {
+    public void shouldReturnAuthorDetailsById() throws AuthorNotFoundException {
         //Given data from db.changelog-03-t-author.yaml
         Author expectedAuthor = Author.builder().Id(3L).firstName("Herbert").lastName("Schildt").build();
         //When
@@ -63,16 +61,16 @@ public class AuthorRepositoryTest {
 
     @Test
     @DisplayName("Should throw exception when invalid author id is given")
-    public void shouldThrowExceptionWhenInvalidIdProvided() throws AuthorException {
+    public void shouldThrowExceptionWhenInvalidIdProvided() throws AuthorNotFoundException {
         //Given data from db.changelog-03-t-author.yaml
         //When and Then
-        assertThatThrownBy(() -> authorRepository.fetchAuthorById(20L)).isInstanceOf(AuthorException.class)
+        assertThatThrownBy(() -> authorRepository.fetchAuthorById(20L)).isInstanceOf(AuthorNotFoundException.class)
                 .hasMessageContaining("No author found with the given Id");
     }
 
     @Test
     @DisplayName("Should save the department when asked")
-    public void shouldSaveDepartment() throws AuthorException {
+    public void shouldSaveDepartment() throws AuthorNotFoundException {
         //Given data from db.changelog-03-t-author.yaml
         Author author = Author.builder().Id(5L).firstName("Richard").lastName("Warburton").build();
         //When
