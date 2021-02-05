@@ -18,34 +18,34 @@ import java.util.stream.Collectors;
 @Table(name = "T_AUTHOR")
 public class AuthorEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID")
-    private Long Id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "ID")
+  private Long Id;
 
-    @Column(name = "FIRST_NAME")
-    private String firstName;
+  @Column(name = "FIRST_NAME")
+  private String firstName;
 
-    @Column(name = "LAST_NAME")
-    private String lastName;
+  @Column(name = "LAST_NAME")
+  private String lastName;
 
-    public static List<Author> toModel(List<AuthorEntity> authorList) {
-        return authorList.stream().map(AuthorEntity::toModel).collect(Collectors.toList());
-    }
+  public static List<Author> toModel(List<AuthorEntity> authorList) {
+    return authorList.stream().map(AuthorEntity::toModel).collect(Collectors.toList());
+  }
 
-    public static Author toModel(AuthorEntity authorEntity) {
-        return Author.builder()
-                .Id(authorEntity.getId())
-                .firstName(authorEntity.getFirstName())
-                .lastName(authorEntity.getLastName())
-                .build();
-    }
+  public static Author toModel(AuthorEntity authorEntity) {
+    return Author.builder()
+        .Id(authorEntity.getId())
+        .firstName(authorEntity.getFirstName())
+        .lastName(authorEntity.getLastName())
+        .build();
+  }
 
-    public static AuthorEntity createEntity(Author author) {
-        return AuthorEntity.builder()
-                .Id(author.getId())
-                .firstName(author.getFirstName())
-                .lastName(author.getLastName())
-                .build();
-    }
+  public static AuthorEntity createEntity(Author author) {
+    return AuthorEntity.builder()
+        .Id(author.getId())
+        .firstName(author.getFirstName())
+        .lastName(author.getLastName())
+        .build();
+  }
 }

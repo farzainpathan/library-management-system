@@ -8,5 +8,5 @@ import java.util.Optional;
 
 public interface RequestBook {
 
-    public Optional<List<Book>> fetchAllBooks() throws BookNotFoundException;
+  public Optional<List<Book>> fetchAllBooks() throws BookNotFoundException;
 }

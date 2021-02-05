@@ -18,16 +18,16 @@ import java.util.Optional;
 @Api(value = "Student Endpoints")
 public class StudentController {
 
-    private RequestStudent requestStudent;
+  private final RequestStudent requestStudent;
 
-    @Autowired
-    public StudentController(RequestStudent requestStudent) {
-        this.requestStudent = requestStudent;
-    }
+  @Autowired
+  public StudentController(RequestStudent requestStudent) {
+    this.requestStudent = requestStudent;
+  }
 
-    @GetMapping("/students")
-    @ApiOperation(value = "This endpoint fetches all the students from database")
-    public Optional<List<Student>> getAllStudent() throws StudentNotFoundException {
-        return requestStudent.fetchAllStudents();
-    }
+  @GetMapping("/students")
+  @ApiOperation(value = "This endpoint fetches all the students from database")
+  public Optional<List<Student>> getAllStudent() throws StudentNotFoundException {
+    return requestStudent.fetchAllStudents();
+  }
 }

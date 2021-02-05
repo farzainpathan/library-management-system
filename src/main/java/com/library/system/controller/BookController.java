@@ -18,18 +18,16 @@ import java.util.Optional;
 @Api(value = "Book Endpoints")
 public class BookController {
 
-    private final RequestBook requestBook;
+  private final RequestBook requestBook;
 
-    @Autowired
-    public BookController(RequestBook requestBook) {
-        this.requestBook = requestBook;
-    }
+  @Autowired
+  public BookController(RequestBook requestBook) {
+    this.requestBook = requestBook;
+  }
 
-    @GetMapping("books")
-    @ApiOperation(value = "This endpoint fetches all the books from database")
-    public Optional<List<Book>> getAllBooks() throws BookNotFoundException {
-        return requestBook.fetchAllBooks();
-    }
-
-
+  @GetMapping("books")
+  @ApiOperation(value = "This endpoint fetches all the books from database")
+  public Optional<List<Book>> getAllBooks() throws BookNotFoundException {
+    return requestBook.fetchAllBooks();
+  }
 }

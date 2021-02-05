@@ -11,9 +11,9 @@ import lombok.NoArgsConstructor;
 @Builder
 public class Author {
 
-    private Long Id;
+  private Long Id;
 
-    private String firstName;
+  private String firstName;
 
-    private String lastName;
+  private String lastName;
 }

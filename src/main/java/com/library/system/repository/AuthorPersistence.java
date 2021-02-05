@@ -8,9 +8,9 @@ import java.util.Optional;
 
 public interface AuthorPersistence {
 
-    Optional<Author> saveAuthor(Author author);
+  Optional<Author> saveAuthor(Author author);
 
-    Optional<List<Author>> fetchAllAuthor() throws AuthorNotFoundException;
+  Optional<List<Author>> fetchAllAuthor() throws AuthorNotFoundException;
 
-    Author fetchAuthorById(Long authorId) throws AuthorNotFoundException;
+  Author fetchAuthorById(Long authorId) throws AuthorNotFoundException;
 }

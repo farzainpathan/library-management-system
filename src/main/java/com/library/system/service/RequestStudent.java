@@ -8,5 +8,5 @@ import java.util.Optional;
 
 public interface RequestStudent {
 
-    public Optional<List<Student>> fetchAllStudents() throws StudentNotFoundException;
+  public Optional<List<Student>> fetchAllStudents() throws StudentNotFoundException;
 }
