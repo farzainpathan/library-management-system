@@ -8,11 +8,11 @@ import java.util.Optional;
 
 public interface DepartmentPersistence {
 
-    Department saveDepartment(Department department);
+  Department saveDepartment(Department department);
 
-    List<Department> fetchAllDepartments();
+  List<Department> fetchAllDepartments();
 
-    Optional<Department> fetchDepartmentById(Long departmentId) throws DepartmentNotFoundException;
+  Optional<Department> fetchDepartmentById(Long departmentId) throws DepartmentNotFoundException;
 
-    void deleteById(Long departmentId);
+  void deleteById(Long departmentId);
 }

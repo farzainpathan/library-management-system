@@ -8,9 +8,9 @@ import java.util.Optional;
 
 public interface BookPersistence {
 
-    Optional<Book> saveBook(Book book);
+  Optional<Book> saveBook(Book book);
 
-    Optional<List<Book>> fetchAllBooks() throws BookNotFoundException;
+  Optional<List<Book>> fetchAllBooks() throws BookNotFoundException;
 
-    Optional<Book> fetchBookById(Long id) throws BookNotFoundException;
+  Optional<Book> fetchBookById(Long id) throws BookNotFoundException;
 }

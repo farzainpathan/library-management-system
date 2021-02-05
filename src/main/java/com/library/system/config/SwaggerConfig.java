@@ -13,21 +13,24 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @Configuration
 public class SwaggerConfig {
 
-    @Bean
-    public Docket productApi() {
-        return new Docket(DocumentationType.SWAGGER_2)
-                .select()
-                .apis(RequestHandlerSelectors.basePackage("com.library.system.controller"))
-                .paths(PathSelectors.any())
-                .build()
-                .apiInfo(metaInfo());
-    }
+  @Bean
+  public Docket productApi() {
+    return new Docket(DocumentationType.SWAGGER_2)
+        .select()
+        .apis(RequestHandlerSelectors.basePackage("com.library.system.controller"))
+        .paths(PathSelectors.any())
+        .build()
+        .apiInfo(metaInfo());
+  }
 
-    private ApiInfo metaInfo() {
-        return new ApiInfo("Farzain : Library Management System",
-                "Library interaction page", "1.0",
-                "@Copy right", "Farzain Pathan",
-                "farzainpathan@rocketmail.com",
-                "www.farzainpathan.com");
-    }
+  private ApiInfo metaInfo() {
+    return new ApiInfo(
+        "Farzain : Library Management System",
+        "Library interaction page",
+        "1.0",
+        "@Copy right",
+        "Farzain Pathan",
+        "farzainpathan@rocketmail.com",
+        "www.farzainpathan.com");
+  }
 }

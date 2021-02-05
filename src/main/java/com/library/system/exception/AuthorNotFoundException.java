@@ -4,11 +4,11 @@ import com.library.system.domian.Author;
 
 public class AuthorNotFoundException extends Exception {
 
-    public AuthorNotFoundException(Author author) {
-        super("Invalid author Id | No author exist");
-    }
+  public AuthorNotFoundException(Author author) {
+    super("Invalid author Id | No author exist");
+  }
 
-    public AuthorNotFoundException(String msg) {
-        super(msg);
-    }
+  public AuthorNotFoundException(String msg) {
+    super(msg);
+  }
 }

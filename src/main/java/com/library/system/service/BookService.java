@@ -12,15 +12,15 @@ import java.util.Optional;
 @Service
 public class BookService implements RequestBook {
 
-    private final BookPersistence bookPersistence;
+  private final BookPersistence bookPersistence;
 
-    @Autowired
-    public BookService(BookPersistence bookPersistence) {
-        this.bookPersistence = bookPersistence;
-    }
+  @Autowired
+  public BookService(BookPersistence bookPersistence) {
+    this.bookPersistence = bookPersistence;
+  }
 
-    @Override
-    public Optional<List<Book>> fetchAllBooks() throws BookNotFoundException {
-        return bookPersistence.fetchAllBooks();
-    }
+  @Override
+  public Optional<List<Book>> fetchAllBooks() throws BookNotFoundException {
+    return bookPersistence.fetchAllBooks();
+  }
 }

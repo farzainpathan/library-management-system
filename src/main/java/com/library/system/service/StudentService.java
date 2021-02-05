@@ -10,17 +10,17 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class StudentService implements RequestStudent{
+public class StudentService implements RequestStudent {
 
-    private final StudentPersistence studentPersistence;
+  private final StudentPersistence studentPersistence;
 
-    @Autowired
-    public StudentService(StudentPersistence studentPersistence) {
-        this.studentPersistence = studentPersistence;
-    }
+  @Autowired
+  public StudentService(StudentPersistence studentPersistence) {
+    this.studentPersistence = studentPersistence;
+  }
 
-    @Override
-    public Optional<List<Student>> fetchAllStudents() throws StudentNotFoundException {
-        return studentPersistence.fetchAllStudents();
-    }
+  @Override
+  public Optional<List<Student>> fetchAllStudents() throws StudentNotFoundException {
+    return studentPersistence.fetchAllStudents();
+  }
 }

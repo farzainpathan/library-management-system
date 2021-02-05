@@ -8,9 +8,9 @@ import java.util.Optional;
 
 public interface StudentPersistence {
 
-    Optional<Student> saveStudent(Student student);
+  Optional<Student> saveStudent(Student student);
 
-    Optional<List<Student>> fetchAllStudents() throws StudentNotFoundException;
+  Optional<List<Student>> fetchAllStudents() throws StudentNotFoundException;
 
-    Optional<Student> fetchStudentById(Long id) throws StudentNotFoundException;
+  Optional<Student> fetchStudentById(Long id) throws StudentNotFoundException;
 }
