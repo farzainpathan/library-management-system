@@ -23,4 +23,14 @@ public class BookService implements RequestBook {
   public Optional<List<Book>> fetchAllBooks() throws BookNotFoundException {
     return bookPersistence.fetchAllBooks();
   }
+
+  @Override
+  public Optional<Book> saveBook(Book book) {
+    return bookPersistence.saveBook(book);
+  }
+
+  @Override
+  public Optional<Book> fetchBookById(Long id) throws BookNotFoundException {
+    return bookPersistence.fetchBookById(id);
+  }
 }

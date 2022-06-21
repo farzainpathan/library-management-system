@@ -8,5 +8,9 @@ import java.util.Optional;
 
 public interface RequestBook {
 
-  public Optional<List<Book>> fetchAllBooks() throws BookNotFoundException;
+  Optional<List<Book>> fetchAllBooks() throws BookNotFoundException;
+
+  Optional<Book> saveBook( Book book);
+
+  Optional<Book> fetchBookById(Long id) throws BookNotFoundException;
 }

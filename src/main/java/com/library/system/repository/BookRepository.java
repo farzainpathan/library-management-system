@@ -36,7 +36,6 @@ public class BookRepository implements BookPersistence {
   @Override
   public Optional<Book> fetchBookById(Long id) throws BookNotFoundException {
     Optional<BookEntity> book = bookDao.findById(id);
-    if (book.isPresent()) return Optional.of(BookEntity.toModel(book.get()));
-    else throw new BookNotFoundException("No Book registered with the given Id");
+    return book.map(BookEntity::toModel);
   }
 }
